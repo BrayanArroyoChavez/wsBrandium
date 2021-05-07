@@ -1,0 +1,56 @@
+* { 
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+/*wrapper divide en secciones el cuerpo de la página para posicionar los difrentes elementos*/
+.wrapper {
+    height: 100%;
+    display: grid;
+    grid-template-rows: 5em 85vh auto;
+}
+
+/*CSS para la cabeza de la página*/
+.header{
+    color: #000;
+    z-index: 99;
+    background-color: #fff;  
+}
+
+/*CSS para el nav utilizado en la cabeza de la página*/
+.header nav{
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: .5rem 1rem;
+}
+
+/*CSS para el contenido de la página que almacena la tabla de datos y las opciones filtrado*/
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5em;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 5em;
+}
+
+.content .card{
+    width: 60%;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.btn{
+    margin-top: 1em !important;
+}
+
+/*CSS para el footer de la página*/
+.footer{
+    background-color: rgba(0, 0, 0, 0.9);
+}

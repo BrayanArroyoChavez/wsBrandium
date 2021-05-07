@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--Inicio del Head-->
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--CSS Propio-->
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+
+    <!--CSS bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <title>Brandium</title>
+</head>
+<!--fin del Head-->
+<!--Inicio del Body-->
+<body>
+    <div class="wrapper">
+        <!--Inicio del header-->
+        <div class="header">
+            <nav class="navbar fixed-top  navbar-expand-lg navbar-light bg-tm">
+                <p><b>Brandium</b></p>
+            </nav>
+        </div>
+        <!--Fin del header-->
+        <!--Inicio del content-->
+        <div class="content">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-grid gap-2 col-6 mx-auto">
+                        <button id="search" class="btn btn-secondary" type="button">Recopilar de marcas</button>
+                        <button id="detail" class="btn btn-secondary" type="button">Completar marcas</button>
+                        <button id="result" class="btn btn-secondary" type="button">Visualizar marcas</button>
+                      </div>
+                </div>
+              </div>
+        </div>
+        <!--Fin del content-->
+        <!--Inicio del footer-->
+        <div class="footer">
+            <p>pie de página</p>
+        </div>
+        <!--Fin del footer-->
+    </div>
+
+    <!--jQuery-->
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>  
+
+    <!--JS bootstrap-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+
+    <script>
+        $('#search').click(function(){
+            location.href='/busqueda'
+        })
+
+        $('#detail').click(function(){
+            location.href='/scraping/detail'
+        })
+
+        $('#result').click(function(){
+            location.href='https://brandium.herokuapp.com/dashboard'
+        })
+    </script>
+</body>
+<!--Fin del Body-->
+</html>
