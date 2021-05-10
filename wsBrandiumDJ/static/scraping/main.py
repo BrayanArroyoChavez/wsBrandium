@@ -13,7 +13,7 @@ from time import sleep
 from datetime import datetime
 
 from django.views.decorators.csrf import csrf_exempt
-
+import os
 #from selenium import webdriver
 #from webdriver_manager.chrome import ChromeDriverManager
 
@@ -27,7 +27,13 @@ def scraping(request):
     #driver = webdriver.Chrome(ChromeDriverManager().install())
     driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver.exe')
     #Se abre la página principal del sitio web.
-    driver.get('https://www.tmdn.org/tmview/#/tmview')
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    #driver.get('https://www.tmdn.org/tmview/#/tmview')
     sleep(30)
     #find_element_by_xpath permite buscar etiquetas con atributos en especificos (Arroja el primer elemento encontrado)
     #el atributo debe de estar dentre de corchetes [] y el contenido se debe concatenar con un @ al inicio.
