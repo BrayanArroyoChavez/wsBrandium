@@ -25,7 +25,10 @@ def scraping(request):
     #Variable p utilizada como contador con el propositos de pruebas.
     p = 1
     #Se asigna el interfaz de chrome.
-    driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install())
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-gpu")
+    driver = webdriver.Chrome(ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install(),options=chrome_options)
     #driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver.exe')
     #Se abre la página principal del sitio web.
     driver.get('https://www.tmdn.org/tmview/#/tmview')
