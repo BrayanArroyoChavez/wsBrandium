@@ -1,1 +1,1 @@
-  web: gunicorn wsBrandiumDJ.wsgi
+  web: gunicorn wsBrandiumDJ.wsgi --timeout 120
