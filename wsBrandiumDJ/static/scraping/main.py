@@ -14,6 +14,9 @@ from datetime import datetime
 
 from django.views.decorators.csrf import csrf_exempt
 
+from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
+
 @csrf_exempt
 def scraping(request):   
     fecharegistro = request.POST.get('fStart') + " - " + request.POST.get('fEnd')
@@ -21,7 +24,8 @@ def scraping(request):
     #Variable p utilizada como contador con el propositos de pruebas.
     p = 1
     #Se asigna el interfaz de chrome.
-    driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver.exe')
+    driver = webdriver.Chrome(ChromeDriverManager().install())
+    #driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver.exe')
     #Se abre la página principal del sitio web.
     driver.get('https://www.tmdn.org/tmview/#/tmview')
     sleep(30)
