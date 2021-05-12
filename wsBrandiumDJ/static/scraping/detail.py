@@ -16,6 +16,10 @@ from selenium.webdriver.common.by import By
 #from fake_useragent import UserAgent
 from time import sleep
 
+from django.shortcuts import redirect
+from django.contrib import messages
+
+
 def detail(request):
     chrome_options = webdriver.ChromeOptions()
     #Argumentos adicionales para el interfaz de navegación con chrome
@@ -36,7 +40,11 @@ def detail(request):
     chrome_options.add_argument("lang=es")
 
     #Se asigna el interfaz de chrome con los argumentos definidos.
-    driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver.exe',chrome_options=chrome_options)
+    try:
+        driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver.exe',chrome_options=chrome_options)
+    except Exception as e:
+        messages.error(request, 'Es necesario actualizar la versión del chromedriver')
+        return redirect('busqueda/')
     #Se indica el tamaño y la posición de la ventana del navegador.
     driver.set_window_size(800,800)
     driver.set_window_position(0,0)
