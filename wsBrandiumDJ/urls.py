@@ -6,6 +6,7 @@ from wsBrandiumDJ.static.scraping.detail import detail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', inicio),
     path('inicio/', inicio),
     path('busqueda/', busqueda),
     path('scraping', scraping),
