@@ -8,5 +8,5 @@ def inicio(request):
 
 def busqueda(request):
     html = loader.get_template('busqueda.html')
-    view = html.render()
+    view = html.render({}, request)
     return HttpResponse(view)

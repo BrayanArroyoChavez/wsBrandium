@@ -13,6 +13,8 @@ from time import sleep
 from datetime import datetime
 
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import redirect
+from django.contrib import messages
 
 @csrf_exempt
 def scraping(request):   
@@ -21,7 +23,11 @@ def scraping(request):
     #Variable p utilizada como contador con el propositos de pruebas.
     p = 1
     #Se asigna el interfaz de chrome.
-    driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver.exe')
+    try:
+        driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver.exe')
+    except Exception as e:
+        messages.error(request, 'Es necesario actualizar la versión del chromedriver')
+        return redirect('busqueda/')
     #Se abre la página principal del sitio web.
     driver.get('https://www.tmdn.org/tmview/#/tmview')
     sleep(30)
@@ -42,8 +48,10 @@ def scraping(request):
     #Dado que el campo de territorios despliega una lista de selccion 
     #se usa Enter para seleccionar la opcione resultante provinientes de la indicación anterior realizada.
     driver.find_element_by_xpath("//div[@class='Select-input']/input").send_keys(Keys.ENTER)
+    sleep(10)
     #find_elements_by_xpath permite buscar etiquetas con atributos en especificos(Arroja todos los elementos que coincidan con las características definidas).
-    driver.find_elements_by_xpath("//input[@class='datepicker-textfield']")[1].send_keys("01/05/2011 - 30/05/2011")
+    driver.find_elements_by_xpath("//input[@class='datepicker-textfield']")[1].send_keys(fecharegistro)
+    sleep(10)
     driver.find_element_by_xpath("//button[@data-test-id='search-button']").click()
     #current_url extrae la dirección URL actual en la que esta posicionado el navegador.
     #Se remplaza en la URL la cantidad de registros que se mostraran por página.
@@ -138,3 +146,4 @@ def scraping(request):
     
     #Cierra el navegador
     driver.quit()
+
