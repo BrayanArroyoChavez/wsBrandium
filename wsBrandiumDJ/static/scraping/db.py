@@ -5,7 +5,7 @@ from wsBrandiumDJ.static.scraping.connection import mydb
 def postMarcas(val):
     mycursor = mydb.cursor()
 
-    sql = "INSERT INTO marcas_renovacions (nombre_marca, no_solicitud, detalles_url,situacion_marca,clasificacion_niza,createdAt,updatedAt ) " \
+    sql = "INSERT IGNORE INTO marcas_renovacions (nombre_marca, no_solicitud, detalles_url,situacion_marca,clasificacion_niza,createdAt,updatedAt ) " \
         "VALUES (%s, %s, %s, %s, %s, %s, %s)"
 
     mycursor.executemany(sql, val)
