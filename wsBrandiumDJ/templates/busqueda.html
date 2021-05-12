@@ -52,9 +52,15 @@
                         {% csrf_token %}
                         <label for="basic-url" class="form-label">Fecha de solicitud</label>
                         <div class="input-group">
-                            <input name="fStart" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
+                            <input name="fsStart" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
                             <span class="input-group-text">-</span>
-                            <input name="fEnd" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
+                            <input name="fsEnd" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
+                        </div>
+                        <label for="basic-url" class="form-label">Fecha de registro</label>
+                        <div class="input-group">
+                            <input name="frStart" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
+                            <span class="input-group-text">-</span>
+                            <input name="frEnd" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                             <button id="inicio" type="submit" class="btn btn-info">Buscar</button>

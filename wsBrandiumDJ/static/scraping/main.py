@@ -18,8 +18,11 @@ from django.contrib import messages
 
 @csrf_exempt
 def scraping(request):   
-    fecharegistro = request.POST.get('fStart') + " - " + request.POST.get('fEnd')
-    print(fecharegistro)
+    fechasolicitud = request.POST.get('fsStart') + " - " + request.POST.get('fsEnd')
+    fecharegistro = request.POST.get('frStart') + " - " + request.POST.get('frEnd')
+
+    print("Fecha de solicitud: " + fechasolicitud)
+    print("Fecha de registro: " + fecharegistro)
     #Variable p utilizada como contador con el propositos de pruebas.
     p = 1
     #Se asigna el interfaz de chrome.
@@ -50,6 +53,7 @@ def scraping(request):
     driver.find_element_by_xpath("//div[@class='Select-input']/input").send_keys(Keys.ENTER)
     sleep(10)
     #find_elements_by_xpath permite buscar etiquetas con atributos en especificos(Arroja todos los elementos que coincidan con las características definidas).
+    driver.find_elements_by_xpath("//input[@class='datepicker-textfield']")[0].send_keys(fechasolicitud)
     driver.find_elements_by_xpath("//input[@class='datepicker-textfield']")[1].send_keys(fecharegistro)
     sleep(10)
     driver.find_element_by_xpath("//button[@data-test-id='search-button']").click()
