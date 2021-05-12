@@ -27,6 +27,24 @@
         <!--Fin del header-->
         <!--Inicio del content-->
         <div class="content">
+            <!--Mensaje-->
+            <!--Mensaje-->
+            {% if messages %}     
+                {% for message in messages %}
+                    {% if message.tags == 'error' %} 
+                    <div class="alert alert-danger" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endif %} 
+                    {% if message.tags == 'success' %} 
+                    <div class="alert alert-success" role="alert">
+                        {{ message }}
+                    </div>
+                    {% endif %}       
+                {% endfor %}     
+            {% endif %}
+            <!--Fin mensaje-->
+            <!--Fin mensaje-->
             <div class="card">
                 <div class="card-body">
                     <div class="d-grid gap-2 col-6 mx-auto">

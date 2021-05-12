@@ -44,7 +44,7 @@ def detail(request):
         driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver.exe',chrome_options=chrome_options)
     except Exception as e:
         messages.error(request, 'Es necesario actualizar la versión del chromedriver')
-        return redirect('busqueda/')
+        return redirect('/inicio/')
     #Se indica el tamaño y la posición de la ventana del navegador.
     driver.set_window_size(800,800)
     driver.set_window_position(0,0)
@@ -111,4 +111,6 @@ def detail(request):
 
     #Cierra el navegador
     driver.quit()
+    messages.success(request, 'Registro de las marcas completado')
+    return redirect('inicio/')
     

@@ -150,4 +150,6 @@ def scraping(request):
     
     #Cierra el navegador
     driver.quit()
+    messages.success(request, 'Registro de las marcas completado')
+    return redirect('busqueda/')
 
