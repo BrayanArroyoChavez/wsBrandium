@@ -5,6 +5,7 @@
 <p>pip install selenium</p>
 <p>pip install html5lib</p>
 <p>pip install mysql-connector-python</p>
+<p>pip install django</p>
 
 <h2>Descripción de archivos:</h2>
 <p>main.py - Archivo que se encarga de realizar la primera parte del web scraping, en el cual se hace la busqueda
