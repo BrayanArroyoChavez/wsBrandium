@@ -21,8 +21,12 @@ def scraping(request):
     pais = request.POST.get('Pais')
     if (request.POST.get('fsStart') != '' and request.POST.get('fsEnd') != ''):
         fechasolicitud = request.POST.get('fsStart') + " - " + request.POST.get('fsEnd')
+    else:
+        fechasolicitud = ''
     if (request.POST.get('frStart') != '' and request.POST.get('frEnd') != ''):
         fecharegistro = request.POST.get('frStart') + " - " + request.POST.get('frEnd')
+    else:
+        fecharegistro = ''
 
     print("Fecha de solicitud: " + fechasolicitud)
     print("Fecha de registro: " + fecharegistro)
