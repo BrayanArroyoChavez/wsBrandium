@@ -18,8 +18,11 @@ from django.contrib import messages
 
 @csrf_exempt
 def scraping(request):   
-    fechasolicitud = request.POST.get('fsStart') + " - " + request.POST.get('fsEnd')
-    fecharegistro = request.POST.get('frStart') + " - " + request.POST.get('frEnd')
+    pais = request.POST.get('Pais')
+    if (request.POST.get('fsStart') != '' and request.POST.get('fsEnd') != ''):
+        fechasolicitud = request.POST.get('fsStart') + " - " + request.POST.get('fsEnd')
+    if (request.POST.get('frStart') != '' and request.POST.get('frEnd') != ''):
+        fecharegistro = request.POST.get('frStart') + " - " + request.POST.get('frEnd')
 
     print("Fecha de solicitud: " + fechasolicitud)
     print("Fecha de registro: " + fecharegistro)
@@ -45,7 +48,7 @@ def scraping(request):
     #send_keys envia la cadena de caracteres al elemento seleccionado.
     #Se selecciona el campo que permite definir el territorio en los parametros de busqueda.
     #Dado que el campo es un elemento al que no se le puede hacer focus fue necesario hacer la selección del elemento mediante las funciones indicadas.
-    webdriver.ActionChains(driver).move_to_element(driver.find_element_by_xpath("//div[@class='Select-input']")).click(driver.find_element_by_xpath("//div[@class='Select-input']")).send_keys("MX").perform()
+    webdriver.ActionChains(driver).move_to_element(driver.find_element_by_xpath("//div[@class='Select-input']")).click(driver.find_element_by_xpath("//div[@class='Select-input']")).send_keys(pais).perform()
     sleep(10)
     #send_keys en este caso envia la función de la tecla enter.
     #Dado que el campo de territorios despliega una lista de selccion 

@@ -57,13 +57,17 @@
                     </div>
                     <form id="busqueda" method="POST" action="/scraping">
                         {% csrf_token %}
-                        <label for="basic-url" class="form-label">Fecha de solicitud</label>
+                        <div class="form-group">
+                            <label class="form-label">País</label>
+                            <input name="Pais" type="text" class="form-control" placeholder="MX">
+                          </div>
+                        <label class="form-label">Fecha de solicitud</label>
                         <div class="input-group">
                             <input name="fsStart" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
                             <span class="input-group-text">-</span>
                             <input name="fsEnd" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
                         </div>
-                        <label for="basic-url" class="form-label">Fecha de registro</label>
+                        <label class="form-label">Fecha de registro</label>
                         <div class="input-group">
                             <input name="frStart" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
                             <span class="input-group-text">-</span>
