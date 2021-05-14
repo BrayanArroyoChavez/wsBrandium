@@ -18,16 +18,24 @@ from django.contrib import messages
 
 @csrf_exempt
 def scraping(request):   
-    pais = request.POST.get('Pais')
-    if (request.POST.get('fsStart') != '' and request.POST.get('fsEnd') != ''):
-        fechasolicitud = request.POST.get('fsStart') + " - " + request.POST.get('fsEnd')
+    if (request.POST.get('Pais') == '' and request.POST.get('fsStart') == '' and request.POST.get('fsEnd') == '' and request.POST.get('frStart') == '' and request.POST.get('frEnd') == ''):
+        messages.error(request, 'Es necesario ingresar por lo menos un parametros de busqueda')
+        return redirect('busqueda/')
     else:
-        fechasolicitud = ''
-    if (request.POST.get('frStart') != '' and request.POST.get('frEnd') != ''):
-        fecharegistro = request.POST.get('frStart') + " - " + request.POST.get('frEnd')
-    else:
-        fecharegistro = ''
+        if (request.POST.get('Pais') != ''):
+            pais = request.POST.get('Pais')
+        else:
+            pais = ''
+        if (request.POST.get('fsStart') != '' and request.POST.get('fsEnd') != ''):
+            fechasolicitud = request.POST.get('fsStart') + " - " + request.POST.get('fsEnd')
+        else:
+            fechasolicitud = ''
+        if (request.POST.get('frStart') != '' and request.POST.get('frEnd') != ''):
+            fecharegistro = request.POST.get('frStart') + " - " + request.POST.get('frEnd')
+        else:
+            fecharegistro = ''
 
+    print("Territorio: " + pais)
     print("Fecha de solicitud: " + fechasolicitud)
     print("Fecha de registro: " + fecharegistro)
     #Variable p utilizada como contador con el propositos de pruebas.
@@ -40,7 +48,7 @@ def scraping(request):
         return redirect('busqueda/')
     #Se abre la página principal del sitio web.
     driver.get('https://www.tmdn.org/tmview/#/tmview')
-    sleep(30)
+    sleep(60)
     #find_element_by_xpath permite buscar etiquetas con atributos en especificos (Arroja el primer elemento encontrado)
     #el atributo debe de estar dentre de corchetes [] y el contenido se debe concatenar con un @ al inicio.
     #Se busca la etiqueta button que contenga los atributos definidos y se hace click.
