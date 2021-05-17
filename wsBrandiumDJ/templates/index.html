@@ -8,6 +8,7 @@
 
     <!--CSS Propio-->
     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/body.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
 
     <!--CSS bootstrap-->
@@ -28,7 +29,6 @@
         <!--Inicio del content-->
         <div class="content">
             <!--Mensaje-->
-            <!--Mensaje-->
             {% if messages %}     
                 {% for message in messages %}
                     {% if message.tags == 'error' %} 
@@ -44,9 +44,8 @@
                 {% endfor %}     
             {% endif %}
             <!--Fin mensaje-->
-            <!--Fin mensaje-->
             <div class="card">
-                <div class="card-body">
+                <div class="card-body row align-items-center">
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <button id="search" class="btn btn-secondary" type="button">Recopilar de marcas</button>
                         <button id="detail-modal-open" class="btn btn-secondary" type="button">Completar marcas</button>
@@ -104,7 +103,7 @@
         })
 
         $('#detail').click(function(){
-            location.href='/carga'
+            location.href='/scraping/carga'
             $('#completar-marcas').modal('toggle')
             $('#carga').modal('show')
         })

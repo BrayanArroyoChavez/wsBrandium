@@ -8,6 +8,7 @@
 
     <!--CSS Propio-->
     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/body.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
 
     <!--CSS bootstrap-->
@@ -47,7 +48,7 @@
             {% endif %}
             <!--Fin mensaje-->
             <div class="card">
-                <div class="card-body">
+                <div class="card-body row align-items-center">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button id="inicio" type="button" class="btn btn-info">
                             <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-house-door-fill" viewBox="0 0 16 16">
@@ -55,7 +56,7 @@
                             </svg>
                         </button>
                     </div>
-                    <form id="busqueda" method="POST" action="/scraping">
+                    <form id="busqueda" method="POST" action="/busqueda/carga">
                         {% csrf_token %}
                         <div class="form-group">
                             <label class="form-label">País</label>
