@@ -10,6 +10,11 @@ def inicio(request):
     view = html.render({'registros':registros}, request)
     return HttpResponse(view)
 
+def carga(request):
+    html = loader.get_template('carga.html')
+    view = html.render({}, request)
+    return HttpResponse(view)
+
 def busqueda(request):
     html = loader.get_template('busqueda.html')
     view = html.render({}, request)

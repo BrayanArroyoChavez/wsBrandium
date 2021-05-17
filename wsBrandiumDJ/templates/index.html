@@ -70,27 +70,13 @@
                     </div>
                     <div class="modal-footer">
                     <button id="detail" type="button" class="btn btn-primary">Continuar</button>
-                    <button id="detail-modal-close" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    <button id="detail-modal-close" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                     </div>
                 </div>
                 </div>
             </div>
         {% endif %}
         <!--Inicio modal para confirmar el proceso de completar marcas-->
-        <!--Inicio modal de carga-->
-        <div class="modal" id="carga" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
-                  <p>Cargando datos</p>
-                </div>
-                <div class="modal-footer">
-                    <button id="carga-close" type="button" class="btn btn-primary">Aceptar</button>
-                  </div>
-              </div>
-            </div>
-        </div>
-        <!--fin del  modal de carga-->
         <!--Inicio del footer-->
         <div class="footer">
             <p>pie de página</p>
@@ -118,13 +104,9 @@
         })
 
         $('#detail').click(function(){
-            location.href='/scraping/detail'
+            location.href='/carga'
             $('#completar-marcas').modal('toggle')
             $('#carga').modal('show')
-        })
-
-        $('#carga-close').click(function(){
-            $('#carga').modal('toggle')
         })
         
         $('#result').click(function(){

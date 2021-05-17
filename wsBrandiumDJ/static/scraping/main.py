@@ -22,7 +22,7 @@ from django.contrib import messages
 def scraping(request):   
     #Se valida si se ingreso algún parametro de busqueda de no ser así se redirige a la ruta de busqueda y muestra el mensaje de error en pantalla
     if (request.POST.get('Pais') == '' and request.POST.get('fsStart') == '' and request.POST.get('fsEnd') == '' and request.POST.get('frStart') == '' and request.POST.get('frEnd') == ''):
-        messages.error(request, 'Es necesario ingresar por lo menos un parametros de busqueda')
+        messages.error(request, 'Es necesario ingresar por lo menos un parametro de busqueda')
         return redirect('busqueda/')
     #En caso de que no se envien los parametros de busquedas previamente definidos en la pantalla 
     #se les asigna una cadena vacia para prevenir errores de asignación durante el proceso de busqueda
