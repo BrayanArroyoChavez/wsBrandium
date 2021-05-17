@@ -49,13 +49,46 @@
                 <div class="card-body">
                     <div class="d-grid gap-2 col-6 mx-auto">
                         <button id="search" class="btn btn-secondary" type="button">Recopilar de marcas</button>
-                        <button id="detail" class="btn btn-secondary" type="button">Completar marcas</button>
+                        <button id="detail-modal-open" class="btn btn-secondary" type="button">Completar marcas</button>
                         <button id="result" class="btn btn-secondary" type="button">Visualizar marcas</button>
                       </div>
                 </div>
               </div>
         </div>
+        
         <!--Fin del content-->
+        <!--Inicio modal para confirmar el proceso de completar marcas-->
+        <div class="modal" id="completar-marcas" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Aviso</h5>
+                </div>
+                <div class="modal-body">
+                  <p>Actualmente existen # marcas sin completar</p>
+                </div>
+                <div class="modal-footer">
+                  <button id="detail" type="button" class="btn btn-primary">Continuar</button>
+                  <button id="detail-modal-close" type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!--Inicio modal para confirmar el proceso de completar marcas-->
+        <!--Inicio modal de carga-->
+        <div class="modal" id="carga" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <p>Cargando datos</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="carga-close" type="button" class="btn btn-primary">Aceptar</button>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <!--fin del  modal de carga-->
         <!--Inicio del footer-->
         <div class="footer">
             <p>pie de página</p>
@@ -74,10 +107,24 @@
             location.href='/busqueda'
         })
 
-        $('#detail').click(function(){
-            location.href='/scraping/detail'
+        $('#detail-modal-open').click(function(){
+            $('#completar-marcas').modal('show')
         })
 
+        $('#detail-modal-close').click(function(){
+            $('#completar-marcas').modal('toggle')
+        })
+
+        $('#detail').click(function(){
+            location.href='/scraping/detail'
+            $('#completar-marcas').modal('toggle')
+            $('#carga').modal('show')
+        })
+
+        $('#carga-close').click(function(){
+            $('#carga').modal('toggle')
+        })
+        
         $('#result').click(function(){
             location.href='https://brandium.herokuapp.com/dashboard'
         })

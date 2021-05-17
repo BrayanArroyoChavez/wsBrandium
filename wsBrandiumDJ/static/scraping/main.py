@@ -53,7 +53,11 @@ def scraping(request):
     #el atributo debe de estar dentre de corchetes [] y el contenido se debe concatenar con un @ al inicio.
     #Se busca la etiqueta button que contenga los atributos definidos y se hace click.
     #el botón despliega las opciones avanzadas de busqueda.
-    driver.find_element_by_xpath("//button[@data-test-id='advanced-search']").click()
+    try:
+        driver.find_element_by_xpath("//button[@data-test-id='advanced-search']").click()
+    except Exception as e:
+        messages.error(request, 'Tiempo de espera superado')
+        return redirect('busqueda/')
     sleep(10)
     #ActionChains permite las interaciones con el teclado y los movimientos y acciones con el mouse.
     #move_to_element mueve el mouse hacia el elemento indicado.

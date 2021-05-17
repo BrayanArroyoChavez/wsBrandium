@@ -52,6 +52,10 @@ def detail(request):
     #Función para obtener las direcciones URL que muestran informaciónn a detalle de las marcas.
     #getEnlaces() es una función contenida en el archivo de python db.py.
     enlaces = getEnlaces()
+    print(len(enlaces))
+    if len(enlaces) == 0:
+        messages.error(request, 'No hay registros que completar')
+        return redirect('busqueda/')
     registro = 0
 
     #Se recorre la lista de direcciones URL
