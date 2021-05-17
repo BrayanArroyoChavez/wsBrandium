@@ -56,7 +56,7 @@
                             </svg>
                         </button>
                     </div>
-                    <form id="busqueda" method="POST" action="/busqueda/carga">
+                    <form id="busqueda" method="POST" action="/scraping">
                         {% csrf_token %}
                         <div class="form-group">
                             <label class="form-label">País</label>
@@ -75,12 +75,45 @@
                             <input name="frEnd" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
                         </div>
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button id="inicio" type="submit" class="btn btn-info">Buscar</button>
+                            <button id="buscar-modal-open" type="button" class="btn btn-info" >Buscar</button>
                         </div>
+                        <!--Inicio modal para confirmar el proceso de completar marcas-->
+                        <div class="modal" id="buscar-marcas" tabindex="-1" role="dialog">
+                            <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title">Aviso</h5>
+                                </div>
+                                <div class="modal-body">
+                                <p>Esta apunto de comenzar con el proceso de busqueda con los parametros indicados, ¿Desea continuar?</p>
+                                </div>
+                                <div class="modal-footer">
+                                <button id="buscar" type="submit" class="btn btn-primary">Continuar</button>
+                                <button id="buscar-modal-close" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        <!--fin modal para confirmar el proceso de completar marcas-->
                     </form>
+                    <!--Inicio modal de carga-->
+                    <div class="modal" id="carga" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                            <p>Cargando datos</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button id="carga-close" type="button" class="btn btn-primary">Aceptar</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <!--fin del  modal de carga-->
                 </div>
               </div>
         </div>
+
         <!--Fin del content-->
         <!--Inicio del footer-->
         <div class="footer">
@@ -110,6 +143,19 @@
 
         $('#inicio').click(function(){
             location.href='/inicio'
+        })
+
+        $('#buscar-modal-open').click(function(){
+            $('#buscar-marcas').modal('show')
+        })
+
+        $('#buscar-modal-close').click(function(){
+            $('#buscar-marcas').modal('toggle')
+        })
+
+        $('#buscar').click(function(){
+            $('#buscar-marcas').modal('toggle')
+            $('#carga').modal('show')
         })
     </script>
 </body>

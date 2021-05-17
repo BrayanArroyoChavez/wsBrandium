@@ -46,7 +46,7 @@
             <!--Fin mensaje-->
             <div class="card">
                 <div class="card-body row align-items-center">
-                    <div class="d-grid gap-2 col-6 mx-auto">
+                    <div class="d-grid gap-2 col-6 mx-auto row align-items-center">
                         <button id="search" class="btn btn-secondary" type="button">Recopilar de marcas</button>
                         <button id="detail-modal-open" class="btn btn-secondary" type="button">Completar marcas</button>
                         <button id="result" class="btn btn-secondary" type="button">Visualizar marcas</button>
@@ -75,7 +75,21 @@
                 </div>
             </div>
         {% endif %}
-        <!--Inicio modal para confirmar el proceso de completar marcas-->
+        <!--fin modal para confirmar el proceso de completar marcas-->
+        <!--Inicio modal de carga-->
+        <div class="modal" id="carga" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <p>Cargando datos</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="carga-close" type="button" class="btn btn-primary">Aceptar</button>
+                  </div>
+              </div>
+            </div>
+        </div>
+        <!--fin del  modal de carga-->
         <!--Inicio del footer-->
         <div class="footer">
             <p>pie de página</p>
@@ -103,9 +117,13 @@
         })
 
         $('#detail').click(function(){
-            location.href='/scraping/carga'
+            location.href='/scraping/detail'
             $('#completar-marcas').modal('toggle')
             $('#carga').modal('show')
+        })
+
+        $('#carga-close').click(function(){
+            $('#carga').modal('toggle')
         })
         
         $('#result').click(function(){
