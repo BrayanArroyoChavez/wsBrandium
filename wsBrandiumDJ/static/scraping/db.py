@@ -1,6 +1,18 @@
 #Archivo de python que contiene la conexión a la base de datos.
 from wsBrandiumDJ.static.scraping.connection import mydb
 
+#Extra la cantida de registros que faltan por completar
+def getCantComp():
+    mycursor = mydb.cursor()
+
+    sql = "SELECT COUNT(id) as cantidad FROM `marcas_renovacions` WHERE band_completo=0"
+
+    mycursor.execute(sql)
+
+    result = mycursor.fetchone()
+
+    return result
+
 #Inserta en la base de datos los datos de la marca resultantes de la primera etapa del raspado de la página web
 def postMarcas(val):
     mycursor = mydb.cursor()
