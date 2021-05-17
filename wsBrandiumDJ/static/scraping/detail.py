@@ -15,8 +15,9 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 #from fake_useragent import UserAgent
 from time import sleep
-
+#Se usa redirect para redirigir la página a otra url
 from django.shortcuts import redirect
+#messages sirve para crear y enviar mensajes de diveros tipos hacía una url
 from django.contrib import messages
 
 
@@ -40,6 +41,7 @@ def detail(request):
     chrome_options.add_argument("lang=es")
 
     #Se asigna el interfaz de chrome con los argumentos definidos.
+    #En caso de que falle se redirige a la página de inicio y muestra el mensaje de error en pantalla
     try:
         driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver.exe',chrome_options=chrome_options)
     except Exception as e:

@@ -13,14 +13,19 @@ from time import sleep
 from datetime import datetime
 
 from django.views.decorators.csrf import csrf_exempt
+#Se usa redirect para redirigir la página a otra url
 from django.shortcuts import redirect
+#messages sirve para crear y enviar mensajes de diveros tipos hacía una url
 from django.contrib import messages
 
 @csrf_exempt
 def scraping(request):   
+    #Se valida si se ingreso algún parametro de busqueda de no ser así se redirige a la ruta de busqueda y muestra el mensaje de error en pantalla
     if (request.POST.get('Pais') == '' and request.POST.get('fsStart') == '' and request.POST.get('fsEnd') == '' and request.POST.get('frStart') == '' and request.POST.get('frEnd') == ''):
         messages.error(request, 'Es necesario ingresar por lo menos un parametros de busqueda')
         return redirect('busqueda/')
+    #En caso de que no se envien los parametros de busquedas previamente definidos en la pantalla 
+    #se les asigna una cadena vacia para prevenir errores de asignación durante el proceso de busqueda
     else:
         if (request.POST.get('Pais') != ''):
             pais = request.POST.get('Pais')
