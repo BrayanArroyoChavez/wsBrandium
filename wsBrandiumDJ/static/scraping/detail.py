@@ -57,7 +57,7 @@ def detail(request):
     print(len(enlaces))
     if len(enlaces) == 0:
         messages.error(request, 'No hay registros que completar')
-        return redirect('busqueda/')
+        return redirect('/inicio/')
     registro = 0
 
     #Se recorre la lista de direcciones URL
@@ -71,8 +71,12 @@ def detail(request):
         #Se genera un vector finito de 24 campos para posicionar en lugares especificos los datos obtenidos y 
         #poder tener mayor control sobre la insersión en la base de datos
         update = ['']*24
-        #Se abre la página con la dirección obtenida de la base de datos
-        driver.get("https://www.tmdn.org/tmview/"+enlace[1])
+        try:
+            #Se abre la página con la dirección obtenida de la base de datos
+            driver.get("https://www.tmdn.org/tmview/"+enlace[1])
+        except:
+            messages.error(request, 'No se encontro el navegador')
+            return redirect('/inicio/')
         try:
             #WebDriverWait permite interrumpir el proceso de ejecución con base a acciones especificas.
             #Es necesario indicar como paramatetros el interfaz web y el tiempo maximo que va a esperar para que se
@@ -93,7 +97,11 @@ def detail(request):
 
             #execute_script permite ejecutar javascript.
             #return document.body.innerHTML permite devolver todo el contenido incluido en el cuerpo de la página web.
-            innerHTML = driver.execute_script("return document.body.innerHTML")
+            try:
+                innerHTML = driver.execute_script("return document.body.innerHTML")
+            except:
+                messages.error(request, 'No se encontro el navegador')
+                return redirect('/inicio/')
             sleep(2)
             #html5lib permite analizar el contenido html
             root = bs4.BeautifulSoup(innerHTML, "html5lib")
@@ -118,5 +126,5 @@ def detail(request):
     #Cierra el navegador
     driver.quit()
     messages.success(request, 'Registro de las marcas completado')
-    return redirect('inicio/')
+    return redirect('/inicio/')
     

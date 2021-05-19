@@ -34,10 +34,22 @@ def scraping(request):
         if (request.POST.get('fsStart') != '' and request.POST.get('fsEnd') != ''):
             fechasolicitud = request.POST.get('fsStart') + " - " + request.POST.get('fsEnd')
         else:
+            if(request.POST.get('fsStart') != '' and request.POST.get('fsEnd') == ''):
+                messages.error(request, 'Es necesario ingresar una fecha inicial y una final')
+                return redirect('busqueda/')
+            if(request.POST.get('fsStart') == '' and request.POST.get('fsEnd') != ''):
+                messages.error(request, 'Es necesario ingresar una fecha inicial y una final')
+                return redirect('busqueda/')
             fechasolicitud = ''
         if (request.POST.get('frStart') != '' and request.POST.get('frEnd') != ''):
             fecharegistro = request.POST.get('frStart') + " - " + request.POST.get('frEnd')
         else:
+            if(request.POST.get('frStart') != '' and request.POST.get('frEnd') == ''):
+                messages.error(request, 'Es necesario ingresar una fecha inicial y una final')
+                return redirect('busqueda/')
+            if(request.POST.get('frStart') == '' and request.POST.get('frEnd') != ''):
+                messages.error(request, 'Es necesario ingresar una fecha inicial y una final')
+                return redirect('busqueda/')
             fecharegistro = ''
 
     print("Territorio: " + pais)
@@ -64,38 +76,50 @@ def scraping(request):
         messages.error(request, 'Tiempo de espera superado')
         return redirect('busqueda/')
     sleep(10)
-    #ActionChains permite las interaciones con el teclado y los movimientos y acciones con el mouse.
-    #move_to_element mueve el mouse hacia el elemento indicado.
-    #send_keys envia la cadena de caracteres al elemento seleccionado.
-    #Se selecciona el campo que permite definir el territorio en los parametros de busqueda.
-    #Dado que el campo es un elemento al que no se le puede hacer focus fue necesario hacer la selección del elemento mediante las funciones indicadas.
-    webdriver.ActionChains(driver).move_to_element(driver.find_element_by_xpath("//div[@class='Select-input']")).click(driver.find_element_by_xpath("//div[@class='Select-input']")).send_keys(pais).perform()
-    sleep(10)
-    #send_keys en este caso envia la función de la tecla enter.
-    #Dado que el campo de territorios despliega una lista de selccion 
-    #se usa Enter para seleccionar la opcione resultante provinientes de la indicación anterior realizada.
-    driver.find_element_by_xpath("//div[@class='Select-input']/input").send_keys(Keys.ENTER)
-    sleep(10)
-    #find_elements_by_xpath permite buscar etiquetas con atributos en especificos(Arroja todos los elementos que coincidan con las características definidas).
-    driver.find_elements_by_xpath("//input[@class='datepicker-textfield']")[0].send_keys(fechasolicitud)
-    driver.find_elements_by_xpath("//input[@class='datepicker-textfield']")[1].send_keys(fecharegistro)
-    sleep(10)
-    driver.find_element_by_xpath("//button[@data-test-id='search-button']").click()
-    #current_url extrae la dirección URL actual en la que esta posicionado el navegador.
-    #Se remplaza en la URL la cantidad de registros que se mostraran por página.
-    driver.get(driver.current_url.replace('pageSize=30', 'pageSize=100'))
+    try:
+        #ActionChains permite las interaciones con el teclado y los movimientos y acciones con el mouse.
+        #move_to_element mueve el mouse hacia el elemento indicado.
+        #send_keys envia la cadena de caracteres al elemento seleccionado.
+        #Se selecciona el campo que permite definir el territorio en los parametros de busqueda.
+        #Dado que el campo es un elemento al que no se le puede hacer focus fue necesario hacer la selección del elemento mediante las funciones indicadas.
+        webdriver.ActionChains(driver).move_to_element(driver.find_element_by_xpath("//div[@class='Select-input']")).click(driver.find_element_by_xpath("//div[@class='Select-input']")).send_keys(pais).perform()
+        sleep(10)
+        #send_keys en este caso envia la función de la tecla enter.
+        #Dado que el campo de territorios despliega una lista de selccion 
+        #se usa Enter para seleccionar la opcione resultante provinientes de la indicación anterior realizada.
+        driver.find_element_by_xpath("//div[@class='Select-input']/input").send_keys(Keys.ENTER)
+        sleep(10)
+        #find_elements_by_xpath permite buscar etiquetas con atributos en especificos(Arroja todos los elementos que coincidan con las características definidas).
+        driver.find_elements_by_xpath("//input[@class='datepicker-textfield']")[0].send_keys(fechasolicitud)
+        driver.find_elements_by_xpath("//input[@class='datepicker-textfield']")[1].send_keys(fecharegistro)
+        sleep(10)
+        driver.find_element_by_xpath("//button[@data-test-id='search-button']").click()
+        #current_url extrae la dirección URL actual en la que esta posicionado el navegador.
+        #Se remplaza en la URL la cantidad de registros que se mostraran por página.
+        driver.get(driver.current_url.replace('pageSize=30', 'pageSize=100'))
+    except:
+        messages.error(request, 'No se encontro el navegador')
+        return redirect('busqueda/')
 
     condition = True
     while condition: 
-        #WebDriverWait permite interrumpir el proceso de ejecución con base a acciones especificas.
-        #Es necesario indicar como paramatetros el interfaz web y el tiempo maximo que va a esperar para que se
-        #cumpla la condición indicada.
-        WebDriverWait(driver,30).until(lambda d: d.find_element_by_tag_name("span"))
+        try:
+            #WebDriverWait permite interrumpir el proceso de ejecución con base a acciones especificas.
+            #Es necesario indicar como paramatetros el interfaz web y el tiempo maximo que va a esperar para que se
+            #cumpla la condición indicada.
+            WebDriverWait(driver,30).until(lambda d: d.find_element_by_tag_name("span"))
+        except:
+            messages.error(request, 'No se encontro el navegador')
+            return redirect('busqueda/')
         print("página: " + str(p))
         sleep(10)
-        #execute_script permite ejecutar javascript.
-        #return document.body.innerHTML permite devolver todo el contenido incluido en el cuerpo de la página web.
-        innerHTML = driver.execute_script("return document.body.innerHTML")
+        try:
+            #execute_script permite ejecutar javascript.
+            #return document.body.innerHTML permite devolver todo el contenido incluido en el cuerpo de la página web.
+            innerHTML = driver.execute_script("return document.body.innerHTML")
+        except:
+            messages.error(request, 'No se encontro el navegador')
+            return redirect('busqueda/')
         sleep(2)
         #html5lib permite analizar el contenido html
         root = bs4.BeautifulSoup(innerHTML, "html5lib")
