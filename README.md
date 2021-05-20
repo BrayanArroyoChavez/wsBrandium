@@ -9,7 +9,7 @@
 
 <h2>Documentación: </h2>
 <p>Dentro de la carpeta static se encuentra el codigo CSS emplado para las vistas, la carpeta de datapicker con el css, js y archivos locales necesarios para su uso y la carpeta scraping la cual contiene los archivos necesarios para realizar el proceso de scraping</p>
-<h3>Archivos de la carpeta scraping</h3>
+<b>Archivos de la carpeta scraping<b>
 <p>main.py - Archivo que se encarga de realizar la primera parte del web scraping, en el cual se hace la busqueda
 especifica de la información y se realiza el recorrido de páginas del resultado obtenido para almacenar la 
 información resultante en la base de datos.</p>
