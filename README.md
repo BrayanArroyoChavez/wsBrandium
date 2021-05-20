@@ -7,7 +7,9 @@
 <p>pip install mysql-connector-python</p>
 <p>pip install django</p>
 
-<h2>Descripción de archivos:</h2>
+<h2>Documentación: </h2>
+<p>Dentro de la carpeta static se encuentra el codigo CSS emplado para las vistas, la carpeta de datapicker con el css, js y archivos locales necesarios para su uso y la carpeta scraping la cual contiene los archivos necesarios para realizar el proceso de scraping</p>
+<h3>Archivos de la carpeta scraping<h3>
 <p>main.py - Archivo que se encarga de realizar la primera parte del web scraping, en el cual se hace la busqueda
 especifica de la información y se realiza el recorrido de páginas del resultado obtenido para almacenar la 
 información resultante en la base de datos.</p>
@@ -17,7 +19,10 @@ sobre las marcas.</p>
 <p>fd.py - Archivo directamente ligado a detail.py en el cual se contienen las funciones que se encargan de realizar
 el raspado especifico a la página web.</p>
 <p>connection.py - Archivo de conexión a la base de datos.</p>
-<p>db.py - Archivo que almance las funciones a la base de datos que son requeridas en los archivos main.py y detail.py</p>
+<p>db.py - Archivo que almance las funciones a la base de datos que son requeridas en los archivos main.py y detail.py</p><br>
+<p>Dentro de la carpeta templates se encuentran los archivos html</p><br>
+<p>urls.py - Archivo se encuentran las rutas de nevegación de la página.</p>
+<p>views.py - Archivo se cargan las vistas.</p>
 
 <h2>Nota:</h2>
 <p>EL archivo chromedriver.exe es utilizado por selenium y debe estar al mismo nivel que los archivos main.py y detail.py para su correcto funcionamiento.</p>
