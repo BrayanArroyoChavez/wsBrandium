@@ -9,13 +9,16 @@
     <!--CSS Propio-->
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/body.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/busqueda.css' %}">
 
     <!--CSS bootstrap-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     
     <!--CSS datepicker-->
     <link rel="stylesheet" type="text/css" href="{% static 'datepicker/css/bootstrap-datepicker.standalone.css' %}">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    
     <title>Brandium</title>
 </head>
 <!--fin del Head-->
@@ -56,46 +59,55 @@
                             </svg>
                         </button>
                     </div>
-                    <form id="busqueda" method="POST" action="/scraping">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            <label class="form-label">País</label>
-                            <input name="Pais" type="text" class="form-control" placeholder="MX">
-                          </div>
-                        <label class="form-label">Fecha de solicitud</label>
-                        <div class="input-group">
-                            <input name="fsStart" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
-                            <span class="input-group-text">-</span>
-                            <input name="fsEnd" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
-                        </div>
-                        <label class="form-label">Fecha de registro</label>
-                        <div class="input-group">
-                            <input name="frStart" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
-                            <span class="input-group-text">-</span>
-                            <input name="frEnd" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
-                        </div>
-                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button id="buscar-modal-open" type="button" class="btn btn-info" >Buscar</button>
-                        </div>
-                        <!--Inicio modal para confirmar el proceso de completar marcas-->
-                        <div class="modal" id="buscar-marcas" tabindex="-1" role="dialog">
-                            <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title">Aviso</h5>
+                    <div class="d-grid gap-2 col-6 mx-auto row align-items-center">
+                        <form id="busqueda" method="POST" action="/scraping">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="form-label">País</label>
+                                <input name="Pais" type="text" class="form-control" placeholder="MX">
+                              </div>
+                            <label class="form-label">Fecha de solicitud</label>
+                            <button type="button" class="btn btn-secondary btn-sm info" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Fecha de solicitud más reciente {{ fsr }}">
+                                ?
+                            </button>
+                            <div class="input-group">
+                                <input name="fsStart" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
+                                <span class="input-group-text">-</span>
+                                <input name="fsEnd" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
+                            </div>
+                            <label class="form-label">Fecha de registro</label>
+                            <button type="button" class="btn btn-secondary btn-sm info" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Fecha de registro más reciente {{ frr }}">
+                                ?
+                            </button>
+                            <div class="input-group">
+                                <input name="frStart" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
+                                <span class="input-group-text">-</span>
+                                <input name="frEnd" type="text" class="form-control datepicker" aria-describedby="basic-addon3">
+                            </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                <button id="buscar-modal-open" type="button" class="btn btn-info" >Buscar</button>
+                            </div>
+                            <!--Inicio modal para confirmar el proceso de completar marcas-->
+                            <div class="modal" id="buscar-marcas" tabindex="-1" role="dialog">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title">Aviso</h5>
+                                    </div>
+                                    <div class="modal-body">
+                                    <p>Esta apunto de comenzar con el proceso de busqueda con los parametros indicados, ¿Desea continuar?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button id="buscar" type="submit" class="btn btn-primary">Continuar</button>
+                                    <button id="buscar-modal-close" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                <p>Esta apunto de comenzar con el proceso de busqueda con los parametros indicados, ¿Desea continuar?</p>
-                                </div>
-                                <div class="modal-footer">
-                                <button id="buscar" type="submit" class="btn btn-primary">Continuar</button>
-                                <button id="buscar-modal-close" type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                 </div>
                             </div>
-                            </div>
-                        </div>
-                        <!--fin modal para confirmar el proceso de completar marcas-->
-                    </form>
+                            <!--fin modal para confirmar el proceso de completar marcas-->
+                        </form>
+                    </div>
+
                     <!--Inicio modal de carga-->
                     <div class="modal" id="carga" tabindex="-1" role="dialog">
                         <div class="modal-dialog" role="document">
@@ -124,7 +136,8 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>  
 
     <!--JS bootstrap-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
 
     <!--JS para el funcionamiento del datepicker-->
     <script src="{% static 'datepicker/js/bootstrap-datepicker.min.js' %}"></script>
@@ -155,6 +168,11 @@
             $('#buscar-marcas').modal('toggle')
             $('#carga').modal('show')
         })
+
+        $(function () { 
+            $('[data-bs-toggle="popover"]').popover();    
+        });
+        
     </script>
 </body>
 <!--Fin del Body-->

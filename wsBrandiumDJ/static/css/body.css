@@ -52,3 +52,13 @@ body {
 .footer{
     background-color: rgba(0, 0, 0, 0.9);
 }
+
+.btn{
+    margin-top: 1em;
+}
+
+.info{
+    margin-top: 1em !important;
+    margin-bottom: 1em !important;
+}
+}

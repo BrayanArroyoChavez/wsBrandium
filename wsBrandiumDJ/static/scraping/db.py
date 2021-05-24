@@ -1,11 +1,35 @@
 #Archivo de python que contiene la conexión a la base de datos.
 from wsBrandiumDJ.static.scraping.connection import mydb
 
-#Extra la cantida de registros que faltan por completar
+#Extrae la cantida de registros que faltan por completar
 def getCantComp():
     mycursor = mydb.cursor()
 
     sql = "SELECT COUNT(id) as cantidad FROM `marcas_renovacions` WHERE band_completo=0"
+
+    mycursor.execute(sql)
+
+    result = mycursor.fetchone()
+
+    return result
+
+#Extrae la fecha de registro mas reciente
+def getFRR():
+    mycursor = mydb.cursor()
+
+    sql = "SELECT MAX(fecha_registro) FROM `marcas_renovacions`"
+
+    mycursor.execute(sql)
+
+    result = mycursor.fetchone()
+
+    return result
+
+#Extrae la fecha de solicitud mas reciente
+def getFSR():
+    mycursor = mydb.cursor()
+
+    sql = "SELECT MAX(fecha_solicitud) FROM `marcas_renovacions`"
 
     mycursor.execute(sql)
 
