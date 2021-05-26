@@ -8,7 +8,7 @@ def getEmpresa(root,update):
             update[2] = d.text
         if ant == '550 Tipo de marca':
             update[3] = d.text
-        if ant == '511 Clasificación de Niza':
+        if ant == '511 Clase de marca':
             update[4] = d.text
         
         ant = d.text
