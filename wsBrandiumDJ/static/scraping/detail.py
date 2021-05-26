@@ -59,6 +59,7 @@ def detail(request):
         messages.error(request, 'No hay registros que completar')
         return redirect('/inicio/')
     registro = 0
+    ban = 0
 
     #Se recorre la lista de direcciones URL
     for enlace in enlaces:
@@ -119,6 +120,13 @@ def detail(request):
             #Se almacena los datos del representante la empresa la función getRepresentante se encuentra en el archivo fd.py
             update = fd.getRepresentante(root,update)
 
+            if len(update) == 1:
+                ban += 1
+            else:
+                ban = 0
+            if (ban == 3):
+                messages.success(request, 'Error al cargar las marcas')
+                return redirect('/inicio/')
             #Se actualiza el registro en la base de datos la función postMarcasCompletas se encuentra en el archivo db.py
             postMarcasCompletas(update)
             print(update)
