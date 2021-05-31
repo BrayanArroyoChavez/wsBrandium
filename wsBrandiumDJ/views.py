@@ -24,13 +24,19 @@ def carga_main(request):
     view = html.render({}, request)
     return HttpResponse(view)
 
-def busqueda(request):
+def busqueda(request):            
     fsr = getFSR()
-    fsr = fsr[0].strftime("%d de %B del %Y")
-    print(fsr)
-    frr = getFRR()
-    frr = frr[0].strftime("%d de %B del %Y")
-    print(frr)
+    try:
+        fsr = fsr[0].strftime("%d de %B del %Y")
+    except:
+        print("No hay fechas que cargar")
+        print(fsr)
+        frr = getFRR()
+    try:
+        frr = frr[0].strftime("%d de %B del %Y")
+    except:
+        print("No hay fechas que cargar")
+        print(frr)
     html = loader.get_template('busqueda.html')
     view = html.render({'fsr': fsr, 'frr': frr}, request)
     return HttpResponse(view)

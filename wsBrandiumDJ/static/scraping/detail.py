@@ -87,10 +87,17 @@ def detail(request):
             #En caso de que no se encuentre el elemento indicado se asigna False a la variable condition para evitar 
             #realizar el proceso de raspado e intente abrir la siguiente dirección URL de la lista de enlaces
             condition = False
+            ban += 1
 
         sleep(13)
 
+        if (ban == 3):
+            driver.quit()
+            messages.success(request, 'Error al cargar las marcas')
+            return redirect('/inicio/')
+
         if condition:
+            ban = 0
             if registro == 0:
                 sleep(90)
             registro += 1
@@ -120,16 +127,10 @@ def detail(request):
             #Se almacena los datos del representante la empresa la función getRepresentante se encuentra en el archivo fd.py
             update = fd.getRepresentante(root,update)
 
-            if len(update) == 1:
-                ban += 1
-            else:
-                ban = 0
-            if (ban == 3):
-                messages.success(request, 'Error al cargar las marcas')
-                return redirect('/inicio/')
             #Se actualiza el registro en la base de datos la función postMarcasCompletas se encuentra en el archivo db.py
             postMarcasCompletas(update)
             print(update)
+            update = ['']*24
 
     #Cierra el navegador
     driver.quit()
