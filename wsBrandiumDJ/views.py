@@ -31,7 +31,7 @@ def busqueda(request):
     except:
         print("No hay fechas que cargar")
         print(fsr)
-        frr = getFRR()
+    frr = getFRR()
     try:
         frr = frr[0].strftime("%d de %B del %Y")
     except:
