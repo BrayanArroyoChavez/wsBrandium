@@ -37,6 +37,30 @@ def getFSR():
 
     return result
 
+#Extrae la fecha de registro mas antigua
+def getFRA():
+    mycursor = mydb.cursor()
+
+    sql = "SELECT MIN(fecha_registro) FROM `marcas_renovacions` WHERE `fecha_registro` != '0000-00-00'"
+
+    mycursor.execute(sql)
+
+    result = mycursor.fetchone()
+
+    return result
+
+#Extrae la fecha de solicitud mas antigua
+def getFSA():
+    mycursor = mydb.cursor()
+
+    sql = "SELECT MIN(fecha_solicitud) FROM `marcas_renovacions` WHERE `fecha_solicitud` != '0000-00-00'"
+
+    mycursor.execute(sql)
+
+    result = mycursor.fetchone()
+
+    return result
+
 #Inserta en la base de datos los datos de la marca resultantes de la primera etapa del raspado de la página web
 def postMarcas(val):
     mycursor = mydb.cursor()

@@ -31,6 +31,10 @@ def scraping(request):
             pais = request.POST.get('Pais')
         else:
             pais = ''
+        if (request.POST.get('Time') != ''):
+            time = request.POST.get('Time')
+        else:
+            time = 60
         if (request.POST.get('fsStart') != '' and request.POST.get('fsEnd') != ''):
             fechasolicitud = request.POST.get('fsStart') + " - " + request.POST.get('fsEnd')
         else:
@@ -65,7 +69,7 @@ def scraping(request):
         return redirect('busqueda/')
     #Se abre la página principal del sitio web.
     driver.get('https://www.tmdn.org/tmview/#/tmview')
-    sleep(60)
+    sleep(time)
     #find_element_by_xpath permite buscar etiquetas con atributos en especificos (Arroja el primer elemento encontrado)
     #el atributo debe de estar dentre de corchetes [] y el contenido se debe concatenar con un @ al inicio.
     #Se busca la etiqueta button que contenga los atributos definidos y se hace click.
@@ -82,6 +86,8 @@ def scraping(request):
         #send_keys envia la cadena de caracteres al elemento seleccionado.
         #Se selecciona el campo que permite definir el territorio en los parametros de busqueda.
         #Dado que el campo es un elemento al que no se le puede hacer focus fue necesario hacer la selección del elemento mediante las funciones indicadas.
+        element = driver.find_element_by_xpath("//div[@class='Select-input']")
+        element.location_once_scrolled_into_view
         webdriver.ActionChains(driver).move_to_element(driver.find_element_by_xpath("//div[@class='Select-input']")).click(driver.find_element_by_xpath("//div[@class='Select-input']")).send_keys(pais).perform()
         sleep(10)
         #send_keys en este caso envia la función de la tecla enter.
@@ -97,6 +103,13 @@ def scraping(request):
         #current_url extrae la dirección URL actual en la que esta posicionado el navegador.
         #Se remplaza en la URL la cantidad de registros que se mostraran por página.
         driver.get(driver.current_url.replace('pageSize=30', 'pageSize=100'))
+        sleep(10)
+        #Validación para verificar los datos de entradas
+        print(driver.current_url)
+        if (driver.current_url == "https://www.tmdn.org/tmview/#/tmview"):
+            driver.quit()
+            messages.error(request, 'Error de formato en los valores de busqueda')
+            return redirect('busqueda/')
     except:
         messages.error(request, 'No se encontro el navegador')
         return redirect('busqueda/')

@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.template import Template, loader
 #Archivo de python que contiene las funciones que se realizaran a la base de datos.
-from wsBrandiumDJ.static.scraping.db import getCantComp, getFSR, getFRR
+from wsBrandiumDJ.static.scraping.db import getCantComp, getFSR, getFRR, getFSA, getFRA
 import locale
 
 # Idioma "es-ES" (código para el español de España)
@@ -25,18 +25,26 @@ def carga_main(request):
     return HttpResponse(view)
 
 def busqueda(request):            
-    fsr = getFSR()
     try:
+        fsr = getFSR()
         fsr = fsr[0].strftime("%d de %B del %Y")
     except:
         print("No hay fechas que cargar")
-        print(fsr)
-    frr = getFRR()
     try:
+        frr = getFRR()
         frr = frr[0].strftime("%d de %B del %Y")
     except:
         print("No hay fechas que cargar")
-        print(frr)
+    try:
+        fsa = getFSA()
+        fsa = fsa[0].strftime("%d de %B del %Y")
+    except:
+        print("No hay fechas que cargar")
+    try:
+        fra = getFRA()
+        fra = fra[0].strftime("%d de %B del %Y")
+    except:
+        print("No hay fechas que cargar")
     html = loader.get_template('busqueda.html')
-    view = html.render({'fsr': fsr, 'frr': frr}, request)
+    view = html.render({'fsr': fsr, 'frr': frr, 'fsa': fsa, 'fra': fra}, request)
     return HttpResponse(view)
