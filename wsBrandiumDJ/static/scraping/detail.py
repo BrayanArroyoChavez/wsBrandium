@@ -43,7 +43,7 @@ def detail(request):
     #Se asigna el interfaz de chrome con los argumentos definidos.
     #En caso de que falle se redirige a la página de inicio y muestra el mensaje de error en pantalla
     try:
-        driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver.exe',chrome_options=chrome_options)
+        driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver',chrome_options=chrome_options)
     except Exception as e:
         messages.error(request, 'Es necesario actualizar la versión del chromedriver')
         return redirect('/inicio/')

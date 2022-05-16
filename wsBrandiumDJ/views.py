@@ -5,7 +5,7 @@ from wsBrandiumDJ.static.scraping.db import getCantComp, getFSR, getFRR, getFSA,
 import locale
 
 # Idioma "es-ES" (código para el español de España)
-locale.setlocale(locale.LC_ALL, 'es-ES') 
+locale.setlocale(locale.LC_ALL, 'es_ES') 
 
 def inicio(request):
     registros = getCantComp()

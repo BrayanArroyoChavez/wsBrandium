@@ -48,6 +48,8 @@
                         <button id="search" class="btn btn-secondary" type="button">Recopilar de marcas</button>
                         <button id="detail-modal-open" class="btn btn-secondary" type="button">Completar marcas</button>
                         <button id="result" class="btn btn-secondary" type="button">Visualizar marcas</button>
+
+                        <button id="search-vigilancia" class="btn btn-secondary" type="button">Busquedas de marcas(Vigilancia)</button>
                       </div>
                 </div>
               </div>
@@ -142,6 +144,10 @@
         
         $('#result').click(function(){
             location.href='https://brandium.herokuapp.com/dashboard'
+        })
+
+        $('#search-vigilancia').click(function(){
+            location.href='/scraping/search'
         })
     </script>
 </body>

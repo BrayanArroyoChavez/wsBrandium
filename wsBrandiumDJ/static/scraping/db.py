@@ -104,3 +104,26 @@ def postMarcasCompletas(update):
 
     print(mycursor.rowcount, "was inserted.")
 
+#Extraer nombre de las marcas para hacer busquedas con el proposito de vigilancia
+def getMarcas():
+    mycursor = mydb.cursor()
+
+    sql = "SELECT id, nombre FROM `marca` where id > 77"
+
+    mycursor.execute(sql)
+
+    result = mycursor.fetchall()
+
+    return result
+
+#Inserta en la base de datos los datos de la marca vigilancia
+def postMarcasVigilancia(val):
+    mycursor = mydb.cursor()
+
+    sql = "INSERT IGNORE INTO marcas_busquedas_guardadas (no_solicitud, id_marca, nombre_marca, fecha_solicitud, clasificacion_niza,createdAt,updatedAt ) " \
+        "VALUES (%s, %s, %s, %s, %s, %s, %s)" 
+
+    mycursor.executemany(sql, val)
+    mydb.commit()
+
+    print(mycursor.rowcount, "was inserted.")

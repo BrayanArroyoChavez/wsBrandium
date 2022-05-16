@@ -63,13 +63,13 @@ def scraping(request):
     p = 1
     #Se asigna el interfaz de chrome.
     try:
-        driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver.exe')
+        driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver')
     except Exception as e:
         messages.error(request, 'Es necesario actualizar la versión del chromedriver')
         return redirect('busqueda/')
     #Se abre la página principal del sitio web.
     driver.get('https://www.tmdn.org/tmview/#/tmview')
-    sleep(time)
+    sleep(60)
     #find_element_by_xpath permite buscar etiquetas con atributos en especificos (Arroja el primer elemento encontrado)
     #el atributo debe de estar dentre de corchetes [] y el contenido se debe concatenar con un @ al inicio.
     #Se busca la etiqueta button que contenga los atributos definidos y se hace click.

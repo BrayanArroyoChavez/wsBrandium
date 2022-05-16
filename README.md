@@ -31,3 +31,5 @@ el raspado especifico a la página web.</p>
 <h2>Prueba en linea</h2>
 <p>Para probar el código en línea ingrese al siguiente enlace</p>
 <a href=https://wsbrandium.herokuapp.com/inicio/>Prueba</a>
+
+python3 manage.py runserver 
