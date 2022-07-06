@@ -60,7 +60,7 @@ def scraping(request):
     print("Fecha de solicitud: " + fechasolicitud)
     print("Fecha de registro: " + fecharegistro)
     #Variable p utilizada como contador con el propositos de pruebas.
-    p = 1
+    p = 86
     #Se asigna el interfaz de chrome.
     try:
         driver = webdriver.Chrome('wsBrandiumDJ/static/scraping/chromedriver')
@@ -103,6 +103,7 @@ def scraping(request):
         #current_url extrae la dirección URL actual en la que esta posicionado el navegador.
         #Se remplaza en la URL la cantidad de registros que se mostraran por página.
         driver.get(driver.current_url.replace('pageSize=30', 'pageSize=100'))
+        driver.get(driver.current_url.replace('page=1', 'page=86'))
         sleep(10)
         #Validación para verificar los datos de entradas
         print(driver.current_url)
@@ -180,7 +181,7 @@ def scraping(request):
             
             registro.append(datetime.now())
             registro.append(datetime.now())
-            print(registro)
+            #print(registro)
             #Se almacena el registro
             val.append(registro)
             #Se limpian los vectorees campos y registros para repetetir el proceso con los demas registros contenidos en elements.
@@ -199,9 +200,9 @@ def scraping(request):
             #las opciones de volver a la primera página o anterior, el elemento de página siguiente estara situado 
             #en la posición [2] del vector resultante.
             if p == 1:
-                driver.find_elements_by_xpath("//a[@class='sc-fznyYp fRaeqU sc-fznBtT kPhgXf']")[0].click()
+                driver.find_elements_by_xpath("//a[@class='sc-fzqMdD cPUWkY sc-pbIaG ifoweA']")[0].click()
             else:
-                driver.find_elements_by_xpath("//a[@class='sc-fznyYp fRaeqU sc-fznBtT kPhgXf']")[2].click()
+                driver.find_elements_by_xpath("//a[@class='sc-fzqMdD cPUWkY sc-pbIaG ifoweA']")[1].click()
             p = p + 1
         except:
             #En caso de que no pueda seleccionar el elemento indicado indicara que ya no hay elementos siguientes 
