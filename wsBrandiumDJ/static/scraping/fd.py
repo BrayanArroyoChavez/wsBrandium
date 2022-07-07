@@ -1,5 +1,5 @@
 def getEmpresa(root,update):
-    marca = root.select('div[data-test-id=item-detail-main] .sc-AxiKw.iIIwSC .bwtSwc div div')
+    marca = root.select('div[data-test-id=item-detail-main] .sc-AxiKw.kLzVNe .kfISki div div')
     ant = ''
     for d in marca:
         if ant == '111 Número de registro':
@@ -20,7 +20,7 @@ def getServicio(root,update):
     return update
 
 def getFecha(root, update):
-    date = root.select('div[data-test-id="item-detail-dates"] .sc-AxiKw.grjojX .bwtSwc div div')
+    date = root.select('div[data-test-id="item-detail-dates"] .sc-AxiKw.cUSaAh .kfISki div div')
     ant = ''
     for d in date:
         if ant == '220 Fecha de solicitud':
@@ -34,7 +34,7 @@ def getFecha(root, update):
     return update
 
 def getSolicitante(root, update):
-    solicitante = root.select('div[data-test-id="item-detail-owner"] .sc-AxiKw.grjojX .bwtSwc div div')
+    solicitante = root.select('div[data-test-id="item-detail-owner"] .sc-AxiKw.cUSaAh .kfISki div div')
     ant = ''
     for d in solicitante:
         if ant == 'Nombre del solicitante':
@@ -56,7 +56,7 @@ def getSolicitante(root, update):
     return update
 
 def getRepresentante(root, update):
-    representante = root.select('div[data-test-id="item-detail-representative"] .sc-AxiKw.grjojX .bwtSwc div div')
+    representante = root.select('div[data-test-id="item-detail-representative"] .sc-AxiKw.cUSaAh .kfISki div div')
     ant = ''
     for d in representante:
         if ant == 'Nombre':

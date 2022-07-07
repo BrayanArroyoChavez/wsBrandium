@@ -38,6 +38,7 @@ def detail(request):
     chrome_options.add_argument("--profile-directory=Default")
     chrome_options.add_argument("--incognito")
     chrome_options.add_argument("--disable-plugins-discovery")
+    chrome_options.add_experimental_option("excludeSwitches", ['enable-logging']);
     chrome_options.add_argument("lang=es")
 
     #Se asigna el interfaz de chrome con los argumentos definidos.
@@ -82,13 +83,14 @@ def detail(request):
             #WebDriverWait permite interrumpir el proceso de ejecución con base a acciones especificas.
             #Es necesario indicar como paramatetros el interfaz web y el tiempo maximo que va a esperar para que se
             #cumpla la condición indicada.
-            WebDriverWait(driver,90).until(EC.presence_of_element_located((By.XPATH, "//*[@class='sc-AxiKw iIIwSC']")))
+            WebDriverWait(driver,90).until(EC.presence_of_element_located((By.XPATH, "//*[@class='sc-AxiKw kLzVNe']")))
+            print("espera de carga")
         except:
             #En caso de que no se encuentre el elemento indicado se asigna False a la variable condition para evitar 
             #realizar el proceso de raspado e intente abrir la siguiente dirección URL de la lista de enlaces
             condition = False
             ban += 1
-
+        print(condition)
         sleep(13)
 
         if (ban == 3):
@@ -97,9 +99,10 @@ def detail(request):
             return redirect('/inicio/')
 
         if condition:
+            print("condicion verdadera")
             ban = 0
             if registro == 0:
-                sleep(90)
+                sleep(30)
             registro += 1
             print('Registro: ' + str(registro) + ' ID:' + str(enlace[0]))
 
@@ -128,8 +131,8 @@ def detail(request):
             update = fd.getRepresentante(root,update)
 
             #Se actualiza el registro en la base de datos la función postMarcasCompletas se encuentra en el archivo db.py
-            postMarcasCompletas(update)
             print(update)
+            postMarcasCompletas(update)
             update = ['']*24
 
     #Cierra el navegador
